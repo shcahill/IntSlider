@@ -30,6 +30,12 @@ final class IntSlider: UISlider {
     
     override func beginTracking(_ touch: UITouch, with event: UIEvent?) -> Bool {
         // つまみ部分以外でもスライド可能
+        let point = touch.location(in: self)
+        let fraction = point.x / bounds.width
+        let newValue = (maximumValue - minimumValue) * Float(fraction) + minimumValue
+        if newValue != value {
+            value = newValue
+        }
         return true
     }
     
